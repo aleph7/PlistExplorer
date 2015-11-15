@@ -82,7 +82,12 @@
 
 	NSArray* keys = unarchiver.keys;
     for (NSString* key in keys) {
-        self.objects[key] = [unarchiver decodeObjectForKey:key];
+        NSObject* object = [unarchiver decodeObjectForKey:key];
+        if (object) {
+            self.objects[key] = object;
+        } else {
+            self.objects[key] = [NSNull null];
+        }
     }
 
 	return self;
